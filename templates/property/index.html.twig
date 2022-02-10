@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mes biens
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Les biens</h1>
+	</div>
+
+	<div class="container">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			{% for property in properties %}
+				{% include "property/property_card.html.twig" %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

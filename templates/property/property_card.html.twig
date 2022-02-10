@@ -1,0 +1,19 @@
+<div class="cols">
+	<div class="card shadow-sm">
+		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" focusable="false">
+			<title>Placeholder</title>
+			<rect width="100%" height="100%" fill="#55595c"></rect>
+			<text x="50%" y="50%" fill="#eceeef" dy=".3em" style="text-anchor:middle">Thumbnail</text>
+		</svg>
+	</div>
+	<div class="card-body">
+		<div class="card-title">
+			<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{ property.name }}</a>
+		</div>
+
+		<p class="card-text">{{ property.description }}</p>
+
+		<div class="text-primary fw-bold" style="font-size:2rem">{{ property.formattedPrice }}
+			€</div>
+	</div>
+</div>

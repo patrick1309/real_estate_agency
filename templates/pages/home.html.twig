@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="p-5 mb-4 bg-light rounded-3">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold">My Real Estate Agency</h1>
+			<p class="col-md-8 fs-4">
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo fugit veritatis expedita. Aut laudantium, voluptatum quam eos labore dolores! Repudiandae qui accusamus porro placeat. Qui placeat temporibus nihil eaque quia.
+			</p>
+		</div>
+	</div>
+
+	<div class="container">
+		<h2>Les derniers biens</h2>
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			{% for property in properties %}
+				{% include "property/property_card.html.twig" %}
+			{% endfor %}
+		</div>
+	</div>
+
+
+{% endblock %}
