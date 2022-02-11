@@ -268,4 +268,13 @@ class Property
 
         return $this;
     }
+
+    public function getFormattedAddress($separator = ', ')
+    {
+        $output = [
+            $this->getAddress(),
+            $this->getPostalCode() . ' ' . $this->getCity(),
+        ];
+        return implode($separator, $output);
+    }
 }
