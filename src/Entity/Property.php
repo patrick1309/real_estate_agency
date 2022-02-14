@@ -5,9 +5,12 @@ namespace App\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PropertyRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
+ * @UniqueEntity("name")
  */
 class Property
 {
@@ -25,6 +28,7 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255)
      */
     private $name;
 
@@ -35,6 +39,7 @@ class Property
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=10, max=400)
      */
     private $surface;
 
@@ -60,6 +65,7 @@ class Property
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Choice(callback="getHeatsIds", message="Merci de choisi le type de chauffage parmi la liste proposées.")
      */
     private $heat;
 
@@ -75,6 +81,10 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *  pattern="/^[0-9]{5}$/",
+     *  message="Le code postal doit être un nombre de 5 chiffres"
+     * )
      */
     private $postal_code;
 
@@ -276,5 +286,13 @@ class Property
             $this->getPostalCode() . ' ' . $this->getCity(),
         ];
         return implode($separator, $output);
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeatsIds()
+    {
+        return array_keys(self::HEAT);
     }
 }
