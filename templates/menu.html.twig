@@ -10,6 +10,17 @@
 					<a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}" aria-current="page" href="{{ path('properties') }}">Acheter</a>
 				</li>
 			</ul>
+			
+			
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					{% if app.user %}
+						<a href="{{ path('logout') }}" class="nav-link">Se déconnecter</a>
+					{% else %}
+						<a href="{{ path('admin.property.index') }}" class="nav-link">Administration</a>
+					{% endif %}
+				</li>
+			</ul>
 		</div>
 	</div>
 </nav>

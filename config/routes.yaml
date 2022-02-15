@@ -13,7 +13,7 @@ property.show:
     slug: '[a-z0-9\-]+'
 
 admin.property.index:
-  path: /admin/properties
+  path: /admin
   controller: App\Controller\Admin\PropertyController::index
 
 admin.property.edit:
@@ -29,7 +29,14 @@ admin.property.new:
 
 admin.property.delete:
   path: /admin/property/{id}
-  controller: App\Controller\Admin\PropertyController:delete
+  controller: App\Controller\Admin\PropertyController::delete
   methods: DELETE
   requirements:
     id: \d+
+
+login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+
+logout:
+  path: /logout
