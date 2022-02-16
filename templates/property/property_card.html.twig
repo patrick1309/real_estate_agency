@@ -8,12 +8,10 @@
 	</div>
 	<div class="card-body">
 		<div class="card-title">
+			{{ property.surface }} m² - 
 			<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{ property.name }}</a>
 		</div>
 
-		<p class="card-text">{{ property.description }}</p>
-
-		<div class="text-primary fw-bold" style="font-size:2rem">{{ property.formattedPrice }}
-			€</div>
+		<div class="text-primary fw-bold" style="font-size:2rem">{{ property.formattedPrice }} €</div>
 	</div>
 </div>

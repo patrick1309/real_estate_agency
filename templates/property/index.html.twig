@@ -8,6 +8,19 @@
 		<h1>Les biens</h1>
 	</div>
 
+	<div class="p-5 mb-4 bg-light rounded-3">
+		<div class="container-fluid py-5">
+			{{ form_start(form) }}
+				<div class="row">
+					<div class="col-md-3">{{ form_row(form.minSurface) }}</div>
+					<div class="col-md-3">{{ form_row(form.maxPrice) }}</div>
+					<div class="col-md-3"><input type="submit" class="btn btn-primary" value="Rechercher"></div>
+				</div>				
+			{{ form_end(form) }}
+		
+		</div>
+	</div>
+
 	<div class="container">
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 			{% for property in properties %}
@@ -15,4 +28,13 @@
 			{% endfor %}
 		</div>
 	</div>
+
+	
+	<div class="container">
+		<div class="pagination">
+			{{ knp_pagination_render(properties) }}
+		</div>
+	</div>
+	
+	
 {% endblock %}
