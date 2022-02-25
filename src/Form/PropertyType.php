@@ -4,11 +4,13 @@ namespace App\Form;
 
 use App\Entity\Option;
 use App\Entity\Property;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Form\PropertyImageType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class PropertyType extends AbstractType
 {
@@ -28,12 +30,19 @@ class PropertyType extends AbstractType
             ->add('options', EntityType::class, [
                 'class' => Option::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ])
             ->add('city')
             ->add('address')
             ->add('postal_code')
-            ->add('sold');
+            ->add('sold')
+            ->add('images', CollectionType::class, [
+                'entry_type' => PropertyImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\PropertyImage;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -105,10 +106,16 @@ class Property
      */
     private $options;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PropertyImage::class, mappedBy="property", orphanRemoval=true, cascade={"persist"})
+     */
+    private $images;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime);
         $this->options = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -329,5 +336,43 @@ class Property
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|PropertyImage[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(PropertyImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(PropertyImage $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProperty() === $this) {
+                $image->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getFirstImage()
+    {
+        return $this->images[0] ? $this->images[0] : null;
     }
 }

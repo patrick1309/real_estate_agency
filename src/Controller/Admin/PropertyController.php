@@ -6,8 +6,9 @@ use App\Entity\Property;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PropertyController extends AbstractController
 {
@@ -30,11 +31,20 @@ class PropertyController extends AbstractController
     {
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $propertyImages = $property->getImages();
+            foreach ($propertyImages as $key => $propertyImage) {
+                if ($propertyImage->getProperty() && !$propertyImage->getImageName()) {
+                    $property->removeImage($propertyImage);
+                } else {
+                    $propertyImage->setProperty($property);
+                    $propertyImages->set($key, $propertyImage);
+                }
+            }
+
             $this->em->flush();
             $this->addFlash('success', 'Le bien a bien été modifié');
-            return $this->redirectToRoute('admin.property.index');
+            return $this->redirectToRoute('admin.property.edit', ['id' => $property->getId()]);
         }
 
         return $this->render('admin/property/edit.html.twig', [
@@ -51,10 +61,16 @@ class PropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $propertyImages = $property->getImages();
+            foreach ($propertyImages as $key => $propertyImage) {
+                $propertyImage->setProperty($property);
+                $propertyImages->set($key, $propertyImage);
+            }
+
             $this->em->persist($property);
             $this->em->flush();
             $this->addFlash('success', 'Le bien a bien été créé');
-            return $this->redirectToRoute('admin.property.index');
+            return $this->redirectToRoute('admin.property.edit', ['id' => $property->getId()]);
         }
 
         return $this->render('admin/property/new.html.twig', [

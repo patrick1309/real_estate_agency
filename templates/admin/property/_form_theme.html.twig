@@ -1,0 +1,12 @@
+{% block _property_images_widget %}
+    <ul id="property-images-fields-list" data-prototype="{{ form_widget(prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}" data-widget-counter="{{ value|length }}" style="list-style: none">
+        {% for key,propertyImageForm in form.children %}
+            {{ form_widget(propertyImageForm) }}
+        {% endfor %}
+    </ul>
+
+    <button type="button" class="add-another-collection-widget btn btn-secondary" data-list-selector="#property-images-fields-list">
+        Ajouter une photo
+    </button>
+{% endblock %}
