@@ -18,7 +18,7 @@ admin.property.index:
 
 admin.property.edit:
   path: /admin/property/{id}
-  controller: App\Controller\Admin\PropertyController:edit
+  controller: App\Controller\Admin\PropertyController::edit
   methods: GET|POST
   requirements:
     id: \d+
