@@ -103,9 +103,6 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
-    "fzaninotto/faker": {
-        "version": "v1.9.2"
-    },
     "imagine/imagine": {
         "version": "1.2.4"
     },
@@ -494,9 +491,6 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.24.0"
     },
-    "symfony/polyfill-php73": {
-        "version": "v1.24.0"
-    },
     "symfony/polyfill-php80": {
         "version": "v1.24.0"
     },
@@ -547,9 +541,6 @@
         "version": "v5.4.3"
     },
     "symfony/security-csrf": {
-        "version": "v5.4.3"
-    },
-    "symfony/security-guard": {
         "version": "v5.4.3"
     },
     "symfony/security-http": {
