@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
  * @UniqueEntity("name")
+ * @ORM\HasLifecycleCallbacks
  */
 class Property
 {
@@ -115,6 +116,11 @@ class Property
      * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="property")
      */
     private $contacts;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -408,6 +414,30 @@ class Property
                 $contact->setProperty(null);
             }
         }
+
+        return $this;
+    }
+
+    /**    
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime);
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime|null $updatedAt
+     * @return self
+     */
+    public function setUpdatedAt(?\DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -27,3 +27,7 @@ services:
     tags:
       - { name: doctrine.event_subscriber }
       - { name: kernel.event_listener, event: vich_uploader.pre_upload }
+
+  App\Listener\PropertyImageSubscriber:
+    tags:
+      - { name: doctrine.event_subscriber }

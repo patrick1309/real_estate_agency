@@ -1,3 +1,4 @@
+{% cache "property" ~ property.id ~ ";" ~ property.updatedAt.timestamp|default(date('2018-01-01 00:00:00').timestamp) %}
 <div class="cols">
 	<div class="card shadow-sm">
 		<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
@@ -22,3 +23,4 @@
 		<div class="text-primary fw-bold" style="font-size:2rem">{{ property.formattedPrice }} €</div>
 	</div>
 </div>
+{% endcache %}

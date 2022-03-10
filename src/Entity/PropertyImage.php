@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=PropertyImageRepository::class)
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class PropertyImage
 {
