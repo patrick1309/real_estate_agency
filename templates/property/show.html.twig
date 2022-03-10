@@ -16,6 +16,11 @@
 {% block body %}
 	<div class="p-5 mb-4 bg-light rounded-3">
 		<div class="container-fluid py-5">
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">{{ message }}</div>
+			{% endfor %}
+
 			<div class="row">
 				<div class="col-md-8">
 					<div class="swiper">
@@ -43,6 +48,22 @@
 					<div class="text-primary fw-bold" style="font-size:2rem">{{ property.formattedPrice }}
 						€</div>
 					<a href="#" class="btn btn-primary">Contact</a>
+					<div id="contactForm" class="mt-4">
+						{{ form_start(form) }}
+							<div class="row">
+								<div class="col">{{ form_row(form.firstname) }}</div>
+								<div class="col">{{ form_row(form.lastname) }}</div>
+							</div>
+							<div class="row">
+								<div class="col">{{ form_row(form.email) }}</div>
+								<div class="col">{{ form_row(form.phoneNumber) }}</div>
+							</div>
+							{{ form_rest(form) }}
+							<div class="form-group">
+								<button class="btn btn-primary">Envoyer</button>
+							</div>
+						{{ form_end(form) }}
+					</div>
 				</div>
 
 			</div>

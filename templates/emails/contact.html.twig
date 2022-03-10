@@ -1,0 +1,30 @@
+{% extends "emails/template.html.twig" %}
+
+{% block title %}<a href="{{ url('property.show', {id: contact.property.id, slug: contact.property.slug}) }}">{{ contact.property.name
+    }}</a>{% endblock %}
+
+
+{% block content %}
+<table>
+    <tr>
+        <td>Nom</td>
+        <td>{{ contact.lastname }}</td>
+    </tr>
+    <tr>
+        <td>Prénom</td>
+        <td>{{ contact.firstname }}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{{ contact.email }}</td>
+    </tr>
+    <tr>
+        <td>Téléphone</td>
+        <td>{{ contact.phoneNumber }}</td>
+    </tr>
+    <tr>
+        <td>Message</td>
+        <td>{{ contact.message | nl2br }}</td>
+    </tr>
+</table>
+{% endblock %}

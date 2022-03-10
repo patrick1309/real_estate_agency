@@ -111,11 +111,17 @@ class Property
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="property")
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime);
         $this->options = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -374,5 +380,35 @@ class Property
     public function getFirstImage()
     {
         return $this->images[0] ? $this->images[0] : null;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getProperty() === $this) {
+                $contact->setProperty(null);
+            }
+        }
+
+        return $this;
     }
 }

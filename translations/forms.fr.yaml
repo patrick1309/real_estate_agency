@@ -11,3 +11,6 @@ Sold: Vendu
 Images: Photos
 vich_uploader.form_label.delete_confirm: Supprimer l'image
 vich_uploader.link.download: Télécharger
+Firstname: Prénom
+Lastname: Nom
+Phone number: Numéro de téléphone
