@@ -2,8 +2,8 @@
 <div class="cols">
 	<div class="card shadow-sm">
 		<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
-			{% if property.getFirstImage %}
-				<img src="{{ vich_uploader_asset(property.getFirstImage, 'imageFile') | imagine_filter('thumb') }}" alt="" style="width:100%" />
+			{% if property.getImage %}
+				<img src="{{ vich_uploader_asset(property.getImage, 'imageFile') | imagine_filter('thumb') }}" alt="" style="width:100%" />
 			{% else %}
 				<svg class="bd-placeholder-img card-img-top" width="100%" style="height:27vh" xmlns="http://www.w3.org/2000/svg" role="img"
 					aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" focusable="false">

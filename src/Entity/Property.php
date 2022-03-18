@@ -108,6 +108,11 @@ class Property
     private $options;
 
     /**
+     * @var PropertyImage|null
+     */
+    private $image;
+
+    /**
      * @ORM\OneToMany(targetEntity=PropertyImage::class, mappedBy="property", orphanRemoval=true, cascade={"persist"})
      */
     private $images;
@@ -383,9 +388,19 @@ class Property
     /**
      * @return ?string
      */
-    public function getFirstImage()
+    public function getImage()
     {
-        return $this->images[0] ? $this->images[0] : null;
+        return $this->image;
+    }
+
+    /**
+     * @param PropertyImage $image
+     * @return self
+     */
+    public function setImage(PropertyImage $image): self
+    {
+        $this->image = $image;
+        return $this;
     }
 
     /**

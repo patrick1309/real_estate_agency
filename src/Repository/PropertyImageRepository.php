@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Property;
 use App\Entity\PropertyImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,28 @@ class PropertyImageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PropertyImage::class);
+    }
+
+    /**
+     * @param Property[] $properties
+     * @return ArrayCollection
+     */
+    public function findForProperties(array $properties): ArrayCollection
+    {
+        $pictures = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.property IN (:properties)')
+            ->groupBy('p.property')
+            ->getQuery()
+            ->setParameter('properties', $properties)
+            ->getResult();
+
+        $pictures = array_reduce($pictures, function (array $output, PropertyImage $picture) {
+            $output[$picture->getProperty()->getId()] = $picture;
+            return $output;
+        }, []);
+
+        return new ArrayCollection($pictures);
     }
 
     // /**
